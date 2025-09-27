@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One-File Code Playground</title>
+    <title>CodeTools - Mobile-Friendly Developer Resources</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -11,783 +12,727 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #333;
-            min-height: 100vh;
-            padding: 20px;
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray: #6c757d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0;
+            text-align: center;
+            background: linear-gradient(rgba(67, 97, 238, 0.9), rgba(58, 12, 163, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234361ee"/><path d="M0 0L100 100M100 0L0 100" stroke="%233a0ca3" stroke-width="2"/></svg>');
+            background-size: cover;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tools Section */
+        .section-title {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-icon {
+            background: var(--primary);
+            color: white;
+            font-size: 2rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .tool-content {
+            padding: 1.5rem;
+        }
+
+        .tool-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .tool-content p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            background: #e9ecef;
+            color: var(--dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 3rem 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 3rem 0;
+            background: #f8f9fa;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
             overflow: hidden;
         }
-        
-        header {
-            background: #2c3e50;
-            color: white;
-            padding: 20px;
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
             text-align: center;
-            border-bottom: 5px solid #3498db;
+            display: none;
         }
-        
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
+
+        .testimonial.active {
+            display: block;
+            animation: fadeIn 0.5s;
         }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        
-        .playground {
+
+        .testimonial img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial .author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .slider-controls {
             display: flex;
-            flex-direction: column;
-            height: 70vh;
+            justify-content: center;
+            margin-top: 1.5rem;
+            gap: 1rem;
         }
-        
-        @media (min-width: 768px) {
-            .playground {
-                flex-direction: row;
-            }
-        }
-        
-        .editor-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid #ddd;
-        }
-        
-        .panel-header {
-            background: #34495e;
+
+        .slider-controls button {
+            background: var(--primary);
             color: white;
-            padding: 10px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .code-editor {
-            flex: 1;
-            padding: 15px;
-            background: #1e1e1e;
-            overflow: auto;
-        }
-        
-        textarea {
-            width: 100%;
-            height: 100%;
-            background: #1e1e1e;
-            color: #d4d4d4;
             border: none;
-            resize: none;
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            line-height: 1.5;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        
-        textarea:focus {
-            outline: 2px solid #3498db;
-        }
-        
-        .preview-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            background: #34495e;
-            color: white;
-        }
-        
-        .preview-container {
-            flex: 1;
-            padding: 15px;
-            background: white;
-            overflow: auto;
-        }
-        
-        #preview {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: white;
-        }
-        
-        .controls {
-            padding: 15px;
-            background: #ecf0f1;
-            display: flex;
-            justify-content: space-between;
-            border-top: 1px solid #bdc3c7;
-        }
-        
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+            transition: background 0.3s;
         }
-        
-        #run-btn {
-            background: #2ecc71;
-            color: white;
+
+        .slider-controls button:hover {
+            background: var(--secondary);
         }
-        
-        #run-btn:hover {
-            background: #27ae60;
-        }
-        
-        #clear-btn {
-            background: #e74c3c;
-            color: white;
-        }
-        
-        #clear-btn:hover {
-            background: #c0392b;
-        }
-        
-        #save-btn {
-            background: #3498db;
-            color: white;
-        }
-        
-        #save-btn:hover {
-            background: #2980b9;
-        }
-        
-        .example-select {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #bdc3c7;
-            background: white;
-            font-weight: bold;
-        }
-        
+
+        /* Footer */
         footer {
-            text-align: center;
-            padding: 15px;
-            background: #2c3e50;
+            background: var(--dark);
             color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
             font-size: 0.9rem;
         }
-        
-        .tab-buttons {
-            display: flex;
-            background: #2c3e50;
-        }
-        
-        .tab-button {
-            flex: 1;
-            padding: 12px;
-            text-align: center;
-            background: #34495e;
-            color: #ecf0f1;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .tab-button.active {
-            background: #3498db;
-            color: white;
-        }
-        
-        .tab-content {
-            display: none;
-            height: 100%;
-        }
-        
-        .tab-content.active {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .mobile-warning {
-            display: none;
-            background: #f39c12;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 767px) {
-            .mobile-warning {
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                width: 100%;
+                margin-top: 1rem;
+                display: none;
+            }
+
+            nav.active {
                 display: block;
             }
-            
-            h1 {
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav ul li {
+                padding: 0.5rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero h1 {
                 font-size: 1.8rem;
             }
-            
-            .playground {
-                height: 60vh;
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>One-File Code Playground</h1>
-            <p class="subtitle">Write HTML, CSS, and JavaScript in one file and see the result instantly</p>
-        </header>
-        
-        <div class="mobile-warning">
-            Tip: On mobile, use landscape orientation for better coding experience
-        </div>
-        
-        <div class="playground">
-            <div class="editor-panel">
-                <div class="panel-header">
-                    <h2>Code Editor</h2>
-                    <select class="example-select" id="example-select">
-                        <option value="">Select Example</option>
-                        <option value="counter">Counter App</option>
-                        <option value="calculator">Calculator</option>
-                        <option value="todo">Todo List</option>
-                        <option value="clock">Digital Clock</option>
-                    </select>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>CodeTools</span>
                 </div>
-                
-                <div class="tab-buttons">
-                    <button class="tab-button active" data-tab="html">HTML</button>
-                    <button class="tab-button" data-tab="css">CSS</button>
-                    <button class="tab-button" data-tab="js">JavaScript</button>
-                </div>
-                
-                <div class="tab-content active" id="html-tab">
-                    <div class="code-editor">
-                        <textarea id="html-code" placeholder="Write your HTML here...">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;
-    &lt;title&gt;My Playground App&lt;/title&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;div id="app"&gt;
-        &lt;h1&gt;Welcome to the Playground!&lt;/h1&gt;
-        &lt;p&gt;Edit the code to see changes in real-time.&lt;/p&gt;
-        &lt;button id="demo-btn"&gt;Click Me!&lt;/button&gt;
-    &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;</textarea>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="css-tab">
-                    <div class="code-editor">
-                        <textarea id="css-code" placeholder="Write your CSS here...">body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    min-height: 100vh;
-    margin: 0;
-}
-
-#app {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-}
-
-p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-#demo-btn {
-    padding: 12px 24px;
-    font-size: 1.1rem;
-    background: #ff6b6b;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-#demo-btn:hover {
-    background: #ff5252;
-    transform: translateY(-2px);
-}</textarea>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="js-tab">
-                    <div class="code-editor">
-                        <textarea id="js-code" placeholder="Write your JavaScript here...">document.getElementById('demo-btn').addEventListener('click', function() {
-    alert('Hello from the playground!');
-    
-    // Change button text and color
-    this.textContent = 'Clicked!';
-    this.style.background = '#4ecdc4';
-    
-    // Reset after 1 second
-    setTimeout(() => {
-        this.textContent = 'Click Me!';
-        this.style.background = '#ff6b6b';
-    }, 1000);
-});
-
-// Add current time to the page
-const timeElement = document.createElement('p');
-timeElement.id = 'current-time';
-document.getElementById('app').appendChild(timeElement);
-
-function updateTime() {
-    const now = new Date();
-    timeElement.textContent = 'Current time: ' + now.toLocaleTimeString();
-}
-
-setInterval(updateTime, 1000);
-updateTime();</textarea>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="preview-panel">
-                <div class="preview-header">
-                    <h2>Live Preview</h2>
-                    <button id="refresh-btn">⟳ Refresh</button>
-                </div>
-                <div class="preview-container">
-                    <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
-                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-tools"></i> Tools</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> Resources</a></li>
+                        <li><a href="#"><i class="fas fa-blog"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        
-        <div class="controls">
-            <button id="run-btn">Run Code</button>
-            <button id="clear-btn">Clear Code</button>
-            <button id="save-btn">Save Code</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Mobile-Friendly Coding Tools</h1>
+            <p>Discover the best tools and resources for creating responsive, mobile-first websites and applications. All tools are tested for mobile compatibility.</p>
+            <a href="#" class="btn">Explore Tools</a>
         </div>
-        
-        <footer>
-            <p>One-File Code Playground &copy; 2023 | Works on all devices</p>
-        </footer>
-    </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="container">
+        <h2 class="section-title">Popular Coding Tools</h2>
+        <div class="tools-grid">
+            <!-- Tool 1 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fab fa-html5"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>HTML5 Validator</h3>
+                    <p>Validate your HTML5 code for mobile compatibility and standards compliance.</p>
+                    <div class="tool-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">Validation</span>
+                        <span class="tag">Mobile</span>
+                    </div>
+                    <a href="#" class="btn">Use Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 2 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fab fa-css3-alt"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>CSS Flexbox Generator</h3>
+                    <p>Create responsive layouts with our visual Flexbox generator.</p>
+                    <div class="tool-tags">
+                        <span class="tag">CSS</span>
+                        <span class="tag">Layout</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                    <a href="#" class="btn">Use Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 3 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fab fa-js"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>JavaScript Minifier</h3>
+                    <p>Minify your JavaScript code for faster mobile loading times.</p>
+                    <div class="tool-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Optimization</span>
+                        <span class="tag">Performance</span>
+                    </div>
+                    <a href="#" class="btn">Use Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 4 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>Responsive Tester</h3>
+                    <p>Test your website on various screen sizes and devices.</p>
+                    <div class="tool-tags">
+                        <span class="tag">Testing</span>
+                        <span class="tag">Responsive</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                    <a href="#" class="btn">Use Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 5 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>Color Palette Generator</h3>
+                    <p>Create accessible color schemes for mobile interfaces.</p>
+                    <div class="tool-tags">
+                        <span class="tag">Design</span>
+                        <span class="tag">Colors</span>
+                        <span class="tag">Accessibility</span>
+                    </div>
+                    <a href="#" class="btn">Use Tool</a>
+                </div>
+            </div>
+
+            <!-- Tool 6 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="tool-content">
+                    <h3>Performance Analyzer</h3>
+                    <p>Analyze and optimize your website for mobile performance.</p>
+                    <div class="tool-tags">
+                        <span class="tag">Performance</span>
+                        <span class="tag">Optimization</span>
+                        <span class="tag">Mobile</span>
+                    </div>
+                    <a href="#" class="btn">Use Tool</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Tools</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile-First Design</h3>
+                    <p>All tools are designed with mobile users in mind, ensuring optimal experience on any device.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Fast Performance</h3>
+                    <p>Tools are optimized for speed, providing quick results even on slower mobile connections.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure & Private</h3>
+                    <p>Your code and data are processed securely and never stored on our servers.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Regular Updates</h3>
+                    <p>We continuously update our tools to support the latest web standards and technologies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Developers Say</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial active">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234361ee'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'>JD</text></svg>" alt="John Doe">
+                    <p>"These tools have revolutionized my mobile development workflow. The responsive tester alone saved me hours of debugging!"</p>
+                    <div class="author">John Doe, Frontend Developer</div>
+                </div>
+                <div class="testimonial">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%233a0ca3'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'>SJ</text></svg>" alt="Sarah Johnson">
+                    <p>"As a UI/UX designer, I appreciate how these tools consider both aesthetics and functionality for mobile interfaces."</p>
+                    <div class="author">Sarah Johnson, UI/UX Designer</div>
+                </div>
+                <div class="testimonial">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' fill='%234cc9f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'>MR</text></svg>" alt="Mike Roberts">
+                    <p>"The performance analyzer helped me identify critical bottlenecks in my mobile web application. Highly recommended!"</p>
+                    <div class="author">Mike Roberts, Full Stack Developer</div>
+                </div>
+                <div class="slider-controls">
+                    <button id="prevTestimonial"><i class="fas fa-chevron-left"></i></button>
+                    <button id="nextTestimonial"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>CodeTools</h3>
+                    <p>Your one-stop destination for mobile-friendly coding tools and resources.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Tools</h3>
+                    <ul>
+                        <li><a href="#">HTML Validator</a></li>
+                        <li><a href="#">CSS Generator</a></li>
+                        <li><a href="#">JavaScript Tools</a></li>
+                        <li><a href="#">Performance Analyzer</a></li>
+                        <li><a href="#">Color Tools</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Cheat Sheets</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Feedback</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 CodeTools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // DOM elements
-        const htmlCode = document.getElementById('html-code');
-        const cssCode = document.getElementById('css-code');
-        const jsCode = document.getElementById('js-code');
-        const preview = document.getElementById('preview');
-        const runBtn = document.getElementById('run-btn');
-        const clearBtn = document.getElementById('clear-btn');
-        const saveBtn = document.getElementById('save-btn');
-        const refreshBtn = document.getElementById('refresh-btn');
-        const exampleSelect = document.getElementById('example-select');
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
         
-        // Tab switching functionality
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.getAttribute('data-tab');
-                
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to current button and content
-                button.classList.add('active');
-                document.getElementById(`${tabId}-tab`).classList.add('active');
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Testimonial slider
+        const testimonials = document.querySelectorAll('.testimonial');
+        const prevBtn = document.getElementById('prevTestimonial');
+        const nextBtn = document.getElementById('nextTestimonial');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => {
+                testimonial.classList.remove('active');
             });
-        });
-        
-        // Run code function
-        function runCode() {
-            const html = htmlCode.value;
-            const css = `<style>${cssCode.value}</style>`;
-            const js = `<script>${jsCode.value}<\/script>`;
             
-            // Combine HTML, CSS, and JS into one document
-            const combinedCode = html.replace('</head>', `${css}</head>`).replace('</body>', `${js}</body>`);
-            
-            // Write to iframe
-            preview.contentDocument.open();
-            preview.contentDocument.write(combinedCode);
-            preview.contentDocument.close();
+            testimonials[index].classList.add('active');
+            currentTestimonial = index;
         }
-        
-        // Event listeners
-        runBtn.addEventListener('click', runCode);
-        refreshBtn.addEventListener('click', runCode);
-        
-        clearBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to clear all code?')) {
-                htmlCode.value = '';
-                cssCode.value = '';
-                jsCode.value = '';
-                runCode();
+
+        prevBtn.addEventListener('click', () => {
+            let newIndex = currentTestimonial - 1;
+            if (newIndex < 0) {
+                newIndex = testimonials.length - 1;
             }
+            showTestimonial(newIndex);
         });
-        
-        saveBtn.addEventListener('click', () => {
-            const blob = new Blob([`
-<!DOCTYPE html>
-<html>
-<head>
-<style>${cssCode.value}</style>
-</head>
-<body>
-${htmlCode.value.replace('<!DOCTYPE html>', '').replace('<html>', '').replace('</html>', '').replace('<head>', '').replace('</head>', '').replace('<body>', '').replace('</body>', '')}
-<script>${jsCode.value}<\/script>
-</body>
-</html>
-            `], { type: 'text/html' });
-            
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'playground-code.html';
-            a.click();
-            URL.revokeObjectURL(url);
-        });
-        
-        // Example code templates
-        const examples = {
-            counter: {
-                html: `<div id="app">
-    <h1>Counter App</h1>
-    <div id="counter">0</div>
-    <button id="increment">+</button>
-    <button id="decrement">-</button>
-    <button id="reset">Reset</button>
-</div>`,
-                css: `body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    min-height: 100vh;
-    margin: 0;
-}
 
-#app {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    margin-bottom: 30px;
-    font-size: 2.5rem;
-}
-
-#counter {
-    font-size: 4rem;
-    margin: 30px 0;
-    font-weight: bold;
-}
-
-button {
-    padding: 12px 24px;
-    margin: 0 10px;
-    font-size: 1.2rem;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 2px solid white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-button:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-}`,
-                js: `let count = 0;
-const counterElement = document.getElementById('counter');
-const incrementBtn = document.getElementById('increment');
-const decrementBtn = document.getElementById('decrement');
-const resetBtn = document.getElementById('reset');
-
-function updateCounter() {
-    counterElement.textContent = count;
-    counterElement.style.color = count > 0 ? '#4ecdc4' : count < 0 ? '#ff6b6b' : 'white';
-}
-
-incrementBtn.addEventListener('click', () => {
-    count++;
-    updateCounter();
-});
-
-decrementBtn.addEventListener('click', () => {
-    count--;
-    updateCounter();
-});
-
-resetBtn.addEventListener('click', () => {
-    count = 0;
-    updateCounter();
-});
-
-updateCounter();`
-            },
-            calculator: {
-                html: `<div id="app">
-    <h1>Calculator</h1>
-    <div id="display">0</div>
-    <div id="buttons">
-        <button class="btn clear">C</button>
-        <button class="btn operator">/</button>
-        <button class="btn operator">*</button>
-        <button class="btn operator">-</button>
-        
-        <button class="btn number">7</button>
-        <button class="btn number">8</button>
-        <button class="btn number">9</button>
-        <button class="btn operator">+</button>
-        
-        <button class="btn number">4</button>
-        <button class="btn number">5</button>
-        <button class="btn number">6</button>
-        <button class="btn equals">=</button>
-        
-        <button class="btn number">1</button>
-        <button class="btn number">2</button>
-        <button class="btn number">3</button>
-        <button class="btn number">0</button>
-        
-        <button class="btn decimal">.</button>
-    </div>
-</div>`,
-                css: `body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#app {
-    max-width: 300px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-}
-
-#display {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    font-size: 2.5rem;
-    text-align: right;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    overflow: hidden;
-}
-
-#buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.btn {
-    padding: 15px;
-    font-size: 1.5rem;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.btn.operator {
-    background: rgba(255, 107, 107, 0.7);
-}
-
-.btn.equals {
-    background: rgba(78, 205, 196, 0.7);
-    grid-row: span 2;
-}
-
-.btn.clear {
-    background: rgba(231, 76, 60, 0.7);
-}`,
-                js: `let currentInput = '0';
-let previousInput = '';
-let operation = null;
-const display = document.getElementById('display');
-
-function updateDisplay() {
-    display.textContent = currentInput;
-}
-
-function inputNumber(num) {
-    if (currentInput === '0' || currentInput === 'Error') {
-        currentInput = num;
-    } else {
-        currentInput += num;
-    }
-    updateDisplay();
-}
-
-function inputOperator(op) {
-    if (currentInput === 'Error') return;
-    
-    if (operation !== null) {
-        calculate();
-    }
-    previousInput = currentInput;
-    currentInput = '';
-    operation = op;
-}
-
-function inputDecimal() {
-    if (currentInput === 'Error') return;
-    
-    if (!currentInput.includes('.')) {
-        currentInput += '.';
-        updateDisplay();
-    }
-}
-
-function clear() {
-    currentInput = '0';
-    previousInput = '';
-    operation = null;
-    updateDisplay();
-}
-
-function calculate() {
-    let computation;
-    const prev = parseFloat(previousInput);
-    const current = parseFloat(currentInput);
-    
-    if (isNaN(prev) || isNaN(current)) {
-        currentInput = 'Error';
-        updateDisplay();
-        return;
-    }
-    
-    switch (operation) {
-        case '+':
-            computation = prev + current;
-            break;
-        case '-':
-            computation = prev - current;
-            break;
-        case '*':
-            computation = prev * current;
-            break;
-        case '/':
-            computation = prev / current;
-            break;
-        default:
-            return;
-    }
-    
-    currentInput = computation.toString();
-    operation = null;
-    previousInput = '';
-    updateDisplay();
-}
-
-// Add event listeners to buttons
-document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('click', () => {
-        if (button.classList.contains('number')) {
-            inputNumber(button.textContent);
-        } else if (button.classList.contains('operator')) {
-            inputOperator(button.textContent);
-        } else if (button.classList.contains('decimal')) {
-            inputDecimal();
-        } else if (button.classList.contains('equals')) {
-            calculate();
-        } else if (button.classList.contains('clear')) {
-            clear();
-        }
-    });
-});
-
-updateDisplay();`
-            },
-            // More examples would be added here
-        };
-        
-        // Example selector
-        exampleSelect.addEventListener('change', function() {
-            const example = this.value;
-            if (example && examples[example]) {
-                htmlCode.value = examples[example].html;
-                cssCode.value = examples[example].css;
-                jsCode.value = examples[example].js;
-                runCode();
+        nextBtn.addEventListener('click', () => {
+            let newIndex = currentTestimonial + 1;
+            if (newIndex >= testimonials.length) {
+                newIndex = 0;
             }
+            showTestimonial(newIndex);
         });
-        
-        // Auto-run code on changes (with debounce)
-        let timeout;
-        function debounceRunCode() {
-            clearTimeout(timeout);
-            timeout = setTimeout(runCode, 1000);
-        }
-        
-        htmlCode.addEventListener('input', debounceRunCode);
-        cssCode.addEventListener('input', debounceRunCode);
-        jsCode.addEventListener('input', debounceRunCode);
-        
-        // Initialize with default code
-        runCode();
+
+        // Auto-rotate testimonials
+        setInterval(() => {
+            let newIndex = currentTestimonial + 1;
+            if (newIndex >= testimonials.length) {
+                newIndex = 0;
+            }
+            showTestimonial(newIndex);
+        }, 5000);
     </script>
 </body>
 </html>
